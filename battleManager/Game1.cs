@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
-using MonoGameWindowsApplication1.Classes.GameState;
+using battleManager.Classes.GameState;
 using System.Linq;
 #endregion
 

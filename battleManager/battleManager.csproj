@@ -38,6 +38,7 @@
     <Compile Include="Classes\GameState\GameState.cs" />
     <Compile Include="Classes\GameState\MenuState.cs" />
     <Compile Include="Classes\GameState\OverviewState.cs" />
+    <Compile Include="Classes\SpriteHandlers\SpriteSheet.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

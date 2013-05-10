@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MonoGameWindowsApplication1.Classes.GameState
+namespace battleManager.Classes.GameState
 {
     class MenuState : GameState
     {
