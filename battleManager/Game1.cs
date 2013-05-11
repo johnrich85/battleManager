@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 using battleManager.Classes.GameState;
 using System.Linq;
+using battleManager.Classes.SpriteHandlers;
 #endregion
 
 namespace battleManager
@@ -98,6 +99,8 @@ namespace battleManager
         {
             // TODO: Add your update logic here
             currentState.Update(gameTime);
+
+            
 
             base.Update(gameTime);
         }

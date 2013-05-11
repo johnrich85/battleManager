@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Classes\Collision\Collision.cs" />
+    <Compile Include="Classes\Entities\Entity.cs" />
     <Compile Include="Classes\GameState\BattleState.cs" />
     <Compile Include="Classes\GameState\GameState.cs" />
     <Compile Include="Classes\GameState\MenuState.cs" />
@@ -71,7 +72,207 @@
     </Content>
     <Content Include="Icon.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Content\Graphics\AgentShoot.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\AgentWalk.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Building.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Cars_final.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Characters\Agent\AgentShoot.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Characters\Agent\AgentWalk.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Characters\Agent\AgentWalkSouth.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Characters\Armor1\ArmorDeath.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Characters\Armor1\ArmorShoot.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Characters\Armor1\ArmorWalk.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Characters\Armor2\Armor2Hurt.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Characters\Armor2\Armor2Shoot.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Characters\Armor2\Armor2Walk.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Characters\Character 1\Hurt\Character1Hurt.xnb" />
+    <Content Include="Content\Graphics\Characters\Character 1\Hurt\Cybereyes dark.xnb" />
+    <Content Include="Content\Graphics\Characters\Character 1\Hurt\Cybereyes.xnb" />
+    <Content Include="Content\Graphics\Characters\Character 1\Hurt\Hair1.xnb" />
+    <Content Include="Content\Graphics\Characters\Character 1\Hurt\Hair2.xnb" />
+    <Content Include="Content\Graphics\Characters\Character 1\Hurt\Jacket.xnb" />
+    <Content Include="Content\Graphics\Characters\Character 1\Hurt\Pants.xnb" />
+    <Content Include="Content\Graphics\Characters\Character 1\Hurt\Shoes.xnb" />
+    <Content Include="Content\Graphics\Characters\Character 1\Hurt\Sunglasses.xnb" />
+    <Content Include="Content\Graphics\Characters\Character 1\Shoot\Character1Shoot.xnb" />
+    <Content Include="Content\Graphics\Characters\Character 1\Shoot\Jacket.xnb" />
+    <Content Include="Content\Graphics\Characters\Character 1\Shoot\Pants.xnb" />
+    <Content Include="Content\Graphics\Characters\Character 1\Shoot\Wristband.xnb" />
+    <Content Include="Content\Graphics\Characters\Character 1\Walk\Cable.xnb" />
+    <Content Include="Content\Graphics\Characters\Character 1\Walk\Character1Walk.xnb" />
+    <Content Include="Content\Graphics\Characters\Character 1\Walk\Cybereyes.xnb" />
+    <Content Include="Content\Graphics\Characters\Character 1\Walk\Cybereyes2 dark.xnb" />
+    <Content Include="Content\Graphics\Characters\Character 1\Walk\Cybereyes2.xnb" />
+    <Content Include="Content\Graphics\Characters\Character 1\Walk\Hair1.xnb" />
+    <Content Include="Content\Graphics\Characters\Character 1\Walk\Hair2.xnb" />
+    <Content Include="Content\Graphics\Characters\Character 1\Walk\Jacket.xnb" />
+    <Content Include="Content\Graphics\Characters\Character 1\Walk\Pants.xnb" />
+    <Content Include="Content\Graphics\Characters\Character 1\Walk\Shoes.xnb" />
+    <Content Include="Content\Graphics\Characters\Character 1\Walk\Sunglasses.xnb" />
+    <Content Include="Content\Graphics\Characters\Character 1\Walk\Wristband.xnb" />
+    <Content Include="Content\Graphics\Characters\MaleWalkShoot.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Explosion.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Fire\Fire.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Fire\Trashcan.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Interior-Furniture.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Interior-Walls-Beige.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Interior-Walls-Blue.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Lamp_alternative.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Laserfence.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Lightning1.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Lightning1_reduced.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Lightning2.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Lightning2_reduced.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Logos.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Mechs\Mech1\Mech1brownDeath.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Mechs\Mech1\Mech1brownWalk.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Mechs\Mech1\Mech1Death.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Mechs\Mech1\Mech1Muzzleflash.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Mechs\Mech1\Mech1Shot.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Mechs\Mech1\Mech1Walk.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Mechs\Mech2\Mech2Death.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Mechs\Mech2\Mech2Hurt.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Mechs\Mech2\Mech2Muzzleflash.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Mechs\Mech2\Mech2Walk.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Objects.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Pipes-RustyWalls.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Previews\CarWeapons_preview.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Previews\Preview1.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Previews\Preview2.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Previews\Preview3.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Previews\Preview4.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Previews\Preview5.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Previews\Preview6.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Previews\Preview7.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Sidewalk_dark.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Street.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\StreetCurve.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Tracks.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Weapons Muzzleflashes\AssaultRifle.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Weapons Muzzleflashes\CarWeapons.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Weapons Muzzleflashes\Muzzleflash.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Weapons Muzzleflashes\Muzzleflashes-Shots.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Weapons Muzzleflashes\MuzzleflashPistol.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Weapons Muzzleflashes\Pistols.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Weapons Muzzleflashes\Shotgun.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Content\SpriteFont1.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
