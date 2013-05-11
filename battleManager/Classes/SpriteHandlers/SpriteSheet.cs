@@ -10,17 +10,13 @@ namespace battleManager.Classes.SpriteHandlers
     /// Spritesheet - Used to return individual frames from a sprite sheet.
     /// </summary>
     /// 
-    class SpriteSheet
+    class SpriteSheet : SpriteBase
     {
-        //The Spriteshhet
+
         Texture2D spriteSheet;
 
         //The individual frame
         Rectangle frame;
-
-        //Dimensions of an individual sprite.
-        public int frameHeight { get; set; }
-        public int frameWidth { get; set; }
 
         //Size of spritesheet
         public int rows { get; set; }
@@ -39,12 +35,11 @@ namespace battleManager.Classes.SpriteHandlers
         /// <param name="width"> The width of an individual frame</param>
         /// <param name="numCols"> Number of columns in spritesheet</param>
         /// <param name="numRows"> Number of rows in spritesheet</param>
-        public SpriteSheet(Texture2D sheet, int height, int width, int numCols, int numRows)
+        public SpriteSheet(Texture2D sprite, int height, int width, int numCols, int numRows)
+            : base(sprite, height, width)
         {
             //Storing parameters to class properties.
-            this.spriteSheet = sheet;
-            this.frameHeight = height;
-            this.frameWidth = width;
+            this.spriteSheet = this.sprite;
             this.rows = numRows;
             this.cols = numCols;
 

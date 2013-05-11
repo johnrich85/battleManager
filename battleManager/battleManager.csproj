@@ -35,11 +35,12 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Classes\Animation\Animation.cs" />
-    <Compile Include="Classes\GameState\BattleState.cs" />
     <Compile Include="Classes\GameState\GameState.cs" />
     <Compile Include="Classes\GameState\MenuState.cs" />
     <Compile Include="Classes\GameState\OverviewState.cs" />
+    <Compile Include="Classes\SpriteHandlers\Animation.cs" />
+    <Compile Include="Classes\SpriteHandlers\Sprite.cs" />
+    <Compile Include="Classes\SpriteHandlers\SpriteBase.cs" />
     <Compile Include="Classes\SpriteHandlers\SpriteSheet.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
