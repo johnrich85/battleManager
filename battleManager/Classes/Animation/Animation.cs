@@ -96,23 +96,13 @@ namespace battleManager.Classes.Animation
             //Getting current location of object.
             position = thePosition;
 
-            //Generating rectangle based on above.
-            destinationRect = new Rectangle(
-                (int)position.X - (int)(spriteSheet.frameWidth) / 2,
-
-                (int)position.Y - (int)(spriteSheet.frameHeight) / 2,
-
-                (int)(spriteSheet.frameWidth),
-
-                (int)(spriteSheet.frameHeight)
-            ); 
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             if (active)
             {
-                spriteBatch.Draw(spriteSheet.getSpriteSheet(), destinationRect, sourceDestination, Color.White );
+                spriteBatch.Draw(spriteSheet.getSpriteSheet(), position, sourceDestination, Color.White);
             }
         }
     }
