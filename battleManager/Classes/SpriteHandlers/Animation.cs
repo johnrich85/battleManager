@@ -10,7 +10,7 @@ namespace battleManager.Classes.SpriteHandlers
     /// <summary>
     /// Used to cycle through a spritesheet with the aim of producing an animation.
     /// </summary>
-    class Animation : IDrawable
+    class Animation : IDrawableBM
     {
         /// <summary>
         /// Where the sprite will be drawn.
