@@ -10,7 +10,7 @@ namespace battleManager.Classes.Entities
     class Entity
     {
         Vector2 position;
-        IDrawable graphics;
+        IsDrawable graphics;
     }
 
     class CollidableEntity : Entity

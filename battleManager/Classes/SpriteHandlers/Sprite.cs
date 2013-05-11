@@ -8,16 +8,14 @@ namespace battleManager.Classes.SpriteHandlers
     /// <summary>
     /// Interface used to enforce draw method.
     /// </summary>
-    interface IDrawable{
+    interface IsDrawable{
         void Draw(SpriteBatch spriteBatch);
     }
 
-    class Sprite : SpriteBase, IDrawable
+    class Sprite : SpriteBase
     {
-        /// <summary>
-        /// Position to which sprite is drawn.
-        /// </summary>
-        Vector2 position;
+
+        Rectangle frame;
 
         /// <summary>
         /// Constructor - assigning class vars
@@ -27,20 +25,31 @@ namespace battleManager.Classes.SpriteHandlers
         /// <param name="width"> Asset Width</param>
         /// <param name="pos"> Position to which sprite will be drawn.</param>
         /// 
-        public Sprite(Texture2D sprite, int height, int width, Vector2 pos)
+        public Sprite(Texture2D sprite, int height, int width)
             : base(sprite, height, width)
         {
-            position = pos;
         }
 
         /// <summary>
-        /// Draw the sprite.
+        /// Returning specific sprite location. 
         /// </summary>
-        /// <param name="spriteBatch"> Sprite will be drawn onto this.</param>
-        public void Draw(SpriteBatch spriteBatch)
+        /// <param name="frameCol">Get frame at this column</param>
+        /// <param name="frameRow">Get frame at this row</param>
+        /// <returns>Rectangle</returns>
+        public Texture2D getFrame(int frameCol, int frameRow)
         {
-            spriteBatch.Draw(sprite, position, Color.White);
+
+            //Getting x/y position for frame.
+            int x = frameCol * frameWidth;
+            int y = frameRow * frameHeight;
+
+            //Creating rectangle
+            frame = new Rectangle(x, y, frameWidth, frameHeight);
+
+            return Crop(sprite, frame);
         }
+
+
     }
 
     

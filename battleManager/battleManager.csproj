@@ -41,6 +41,7 @@
     <Compile Include="Classes\GameState\GameState.cs" />
     <Compile Include="Classes\GameState\MenuState.cs" />
     <Compile Include="Classes\GameState\OverviewState.cs" />
+    <Compile Include="Classes\Map\Arena.cs" />
     <Compile Include="Classes\SpriteHandlers\Animation.cs" />
     <Compile Include="Classes\SpriteHandlers\Sprite.cs" />
     <Compile Include="Classes\SpriteHandlers\SpriteBase.cs" />
@@ -275,6 +276,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\SpriteFont1.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Graphics\Maps\arena1.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

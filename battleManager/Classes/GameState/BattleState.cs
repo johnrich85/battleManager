@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using battleManager.Classes.Map;
 
 namespace battleManager.Classes.GameState
 {
@@ -14,8 +15,12 @@ namespace battleManager.Classes.GameState
     {
         SpriteFont font;
         Texture2D texture;
+        Texture2D mapTexture;
+        Sprite mapSprite;
         SpriteSheet test;
         Animation testAnim;
+
+        Arena mapTest;
 
         public BattleState(ContentManager theContent, EventHandler gameStateEvent)
             : base(theContent, gameStateEvent)
@@ -29,6 +34,14 @@ namespace battleManager.Classes.GameState
             test = new SpriteSheet(texture, 64, 64, 8, 3);
             testAnim = new Animation();
             testAnim.Initialize(test, 150, true, new Vector2(50, 50), 1, 8, 2);
+
+            mapTexture = theContent.Load<Texture2D>("Graphics/Maps/arena1");
+
+            mapSprite = new Sprite(mapTexture, 400, 400);
+
+            mapTexture = mapSprite.getFrame(0, 0);
+
+            mapTest = new Arena(mapTexture, 400, 400);
 
             base.Initialize();
         }
@@ -47,8 +60,13 @@ namespace battleManager.Classes.GameState
 
         public override void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
+            //Temp changing bg color.
+            graphicsDevice.Clear(new Color(0, 0, 0, 1));
+
             spriteBatch.DrawString(font, "BATTLE - press q to overview", new Vector2(20f, 20f), new Color(255, 255, 255));
             testAnim.Draw(spriteBatch);
+
+            mapTest.Draw(spriteBatch, graphicsDevice);
             base.Draw(spriteBatch, graphicsDevice);
         }
     }
