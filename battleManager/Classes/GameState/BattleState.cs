@@ -9,11 +9,12 @@ using System.Text;
 
 namespace battleManager.Classes.GameState
 {
-    class MenuState : GameState
+    class BattleState : GameState
     {
         SpriteFont font;
 
-        public MenuState(ContentManager theContent, EventHandler gameStateEvent)
+
+        public BattleState(ContentManager theContent, EventHandler gameStateEvent)
             : base(theContent, gameStateEvent)
         {
         }
@@ -23,20 +24,21 @@ namespace battleManager.Classes.GameState
             font = theContent.Load<SpriteFont>("SpriteFont1");
             base.Initialize();
         }
-        
-        public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
+
+        public override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Key.Enter))
+            if (Keyboard.GetState().IsKeyDown(Key.Q))
             {
                 gameStateEvent.Invoke(this, new EventArgs());
             }
+
             base.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
-            spriteBatch.DrawString(font, "MENU - enter for overview", new Vector2(20f, 20f), new Color(255,255,255));
- 	        base.Draw(spriteBatch, graphicsDevice);
+            spriteBatch.DrawString(font, "BATTLE - press q to overview", new Vector2(20f, 20f), new Color(255, 255, 255));
+            base.Draw(spriteBatch, graphicsDevice);
         }
     }
 }

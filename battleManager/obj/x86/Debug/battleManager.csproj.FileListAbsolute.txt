@@ -9,3 +9,14 @@ c:\users\john\documents\visual studio 2012\Projects\battleManager\battleManager\
 c:\users\john\documents\visual studio 2012\Projects\battleManager\battleManager\obj\x86\Debug\battleManager.exe
 c:\users\john\documents\visual studio 2012\Projects\battleManager\battleManager\obj\x86\Debug\battleManager.pdb
 c:\users\john\documents\visual studio 2012\Projects\battleManager\battleManager\bin\WindowsGL\Debug\Content\SpriteFont1.xnb
+C:\GitHub\battleManager\battleManager\obj\x86\Debug\battleManager.exe
+C:\GitHub\battleManager\battleManager\obj\x86\Debug\battleManager.pdb
+C:\GitHub\battleManager\battleManager\bin\WindowsGL\Debug\SDL.dll
+C:\GitHub\battleManager\battleManager\bin\WindowsGL\Debug\Content\SpriteFont1.xnb
+C:\GitHub\battleManager\battleManager\bin\WindowsGL\Debug\battleManager.exe
+C:\GitHub\battleManager\battleManager\bin\WindowsGL\Debug\battleManager.pdb
+C:\GitHub\battleManager\battleManager\bin\WindowsGL\Debug\Lidgren.Network.dll
+C:\GitHub\battleManager\battleManager\bin\WindowsGL\Debug\MonoGame.Framework.dll
+C:\GitHub\battleManager\battleManager\bin\WindowsGL\Debug\OpenTK.dll
+C:\GitHub\battleManager\battleManager\bin\WindowsGL\Debug\Tao.Sdl.dll
+C:\GitHub\battleManager\battleManager\obj\x86\Debug\battleManager.csprojResolveAssemblyReference.cache

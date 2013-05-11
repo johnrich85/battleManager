@@ -12,6 +12,8 @@ namespace battleManager.Classes.GameState
     class OverviewState : GameState
     {
         SpriteFont font;
+        public bool goToBattle { get; set; }
+        public bool goToMenu { get; set; }
 
         public OverviewState(ContentManager theContent, EventHandler gameStateEvent)
             : base(theContent, gameStateEvent)
@@ -26,12 +28,21 @@ namespace battleManager.Classes.GameState
 
         public override void Update(GameTime gameTime)
         {
+            // sets state transitions, and triggers the event if one of them is true
+            if (Keyboard.GetState().IsKeyDown(Key.Space)) goToBattle = true;
+            else if (Keyboard.GetState().IsKeyDown(Key.Escape)) goToMenu = true;
+
+            if (goToBattle || goToMenu)
+            {
+                gameStateEvent.Invoke(this, new EventArgs());
+            }
+
             base.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
-            spriteBatch.DrawString(font, "OVERVIEW", new Vector2(20f, 20f), new Color(255, 255, 255));
+            spriteBatch.DrawString(font, "OVERVIEW - esc for menu, space for battle", new Vector2(20f, 20f), new Color(255, 255, 255));
             base.Draw(spriteBatch, graphicsDevice);
         }
     }

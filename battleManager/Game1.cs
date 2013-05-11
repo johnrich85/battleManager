@@ -23,6 +23,7 @@ namespace battleManager
 
         MenuState menuState;
         OverviewState overviewState;
+        BattleState battleState;
 
         IGameState currentState;
 
@@ -38,9 +39,11 @@ namespace battleManager
             gameStates = new List<IGameState>();
             menuState = new MenuState(this.Content, new EventHandler(MenuStateEvent));
             overviewState = new OverviewState(this.Content, new EventHandler(OverviewStateEvent));
+            battleState = new BattleState(this.Content, new EventHandler(BattleStateEvent));
 
             gameStates.Add(menuState);
             gameStates.Add(overviewState);
+            gameStates.Add(battleState);
 
             // current state set to menu
             currentState = menuState;
@@ -93,14 +96,10 @@ namespace battleManager
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
             // TODO: Add your update logic here
             currentState.Update(gameTime);
 
             base.Update(gameTime);
-
         }
 
         /// <summary>
@@ -123,15 +122,35 @@ namespace battleManager
             base.Draw(gameTime);
         }
 
+
+        #region GAMSTATE TRANSITION EVENTS
+
         public void MenuStateEvent(object obj, EventArgs e)
         {
-            //Switch to the controller detect screen, the Title screen is finished being displayed
             currentState = overviewState;
         }
 
         public void OverviewStateEvent(object obj, EventArgs e)
         {
-            currentState = menuState;
+            // switch active state based on which is selected
+            OverviewState state = obj as OverviewState;
+            if (state.goToBattle)
+            {
+                state.goToBattle = false;
+                currentState = battleState;
+            }
+            else if (state.goToMenu)
+            {
+                state.goToMenu = false;
+                currentState = menuState;
+            }
         }
+
+        public void BattleStateEvent(object obj, EventArgs e)
+        {
+            currentState = overviewState;
+        }
+
+        #endregion
     }
 }
