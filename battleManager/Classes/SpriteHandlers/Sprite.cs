@@ -8,11 +8,11 @@ namespace battleManager.Classes.SpriteHandlers
     /// <summary>
     /// Interface used to enforce draw method.
     /// </summary>
-    interface isDrawable{
+    interface IDrawable{
         void Draw(SpriteBatch spriteBatch);
     }
 
-    class Sprite : SpriteBase, isDrawable
+    class Sprite : SpriteBase, IDrawable
     {
         /// <summary>
         /// Position to which sprite is drawn.

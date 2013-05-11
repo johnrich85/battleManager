@@ -10,7 +10,7 @@ namespace battleManager.Classes.SpriteHandlers
     /// <summary>
     /// Used to cycle through a spritesheet with the aim of producing an animation.
     /// </summary>
-    class Animation : isDrawable
+    class Animation : IDrawable
     {
         /// <summary>
         /// Where the sprite will be drawn.
@@ -52,8 +52,13 @@ namespace battleManager.Classes.SpriteHandlers
         /// </summary>
         bool active = true;
 
+        int currentCol;
+        int currentRow;
+        int startCol;
+        int endCol;
 
-        public void Initialize(SpriteSheet theSpriteSheet, float frameDuration, bool isLooping, Vector2 thePosition, int spriteCol, int spriteRow)
+
+        public void Initialize(SpriteSheet theSpriteSheet, float frameDuration, bool isLooping, Vector2 thePosition, int startCol, int endCol, int spriteRow)
         {
             //Assigning param values to class variables
             this.spriteSheet = theSpriteSheet;
@@ -61,11 +66,14 @@ namespace battleManager.Classes.SpriteHandlers
             this.displayDuration = frameDuration;
             this.looping = isLooping;
             this.position = thePosition;
+            this.currentCol = startCol;
+            this.currentRow = spriteRow;
+            this.endCol = endCol;
+            this.startCol = startCol;
 
             //Setting the starting point for spritesheet
-            this.spriteSheet.setFrame(spriteCol, spriteRow);
-            this.sourceDestination = this.spriteSheet.getFrame(spriteCol, spriteRow);    
-
+            this.spriteSheet.setFrame(startCol, spriteRow);
+            this.sourceDestination = this.spriteSheet.getFrame(startCol, spriteRow);
         }
 
         public void Update(GameTime theGameTime, Vector2 thePosition)
@@ -78,7 +86,10 @@ namespace battleManager.Classes.SpriteHandlers
             //Time to change frames.
             if (elapsedTime >= displayDuration)
             {
-                this.sourceDestination = this.spriteSheet.next();
+                currentCol++;
+                if (currentCol > endCol) currentCol = startCol;
+
+                this.sourceDestination = spriteSheet.getFrame(currentCol, currentRow);
 
                 //Reset elapsed
                 elapsedTime = 0;
