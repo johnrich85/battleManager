@@ -1,3 +1,5 @@
-battleManager/bin
-battleManager/obj
+battleManager/bin/*
+battleManager/obj/*
+bin/*
+obj/*
 *.suo
