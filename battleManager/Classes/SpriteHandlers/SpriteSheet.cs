@@ -19,16 +19,17 @@ namespace battleManager.Classes.SpriteHandlers
         Rectangle frame;
 
         //Dimensions of an individual sprite.
-        int frameHeight;
-        int frameWidth;
+        public int frameHeight { get; set; }
+        public int frameWidth { get; set; }
 
         //Size of spritesheet
-        int rows;
-        int cols;
+        public int rows { get; set; }
+        public int cols { get; set; }
 
-        //current frame,
-        int currentFrameX = 0;
-        int currentFrameY = 0;
+        //current frame
+        public int currentFrameX { get; set; }
+        public int currentFrameY { get; set; }
+
 
         /// <summary>
         /// Constructor - setting class variables.
@@ -46,6 +47,10 @@ namespace battleManager.Classes.SpriteHandlers
             this.frameWidth = width;
             this.rows = numRows;
             this.cols = numCols;
+
+            //Setting default frame to the very first one
+            currentFrameX = 0;
+            currentFrameY = 0;
         }
 
         /// <summary>
