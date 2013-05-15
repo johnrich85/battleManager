@@ -3,7 +3,7 @@ using battleManager.Classes.SpriteHandlers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using OpenTK.Input;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,18 +39,17 @@ namespace battleManager.Classes.GameState
 
         public override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Key.Q))
+            if (Keyboard.GetState().IsKeyDown(Keys.Q))
             {
                 gameStateEvent.Invoke(this, new EventArgs());
             }
 
             movement.Reset();
-
-            if (Keyboard.GetState().IsKeyDown(Key.W)) movement.Up = true;
-            else if (Keyboard.GetState().IsKeyDown(Key.S)) movement.Down = true;
-
-            if (Keyboard.GetState().IsKeyDown(Key.A)) movement.Left = true;
-            else if (Keyboard.GetState().IsKeyDown(Key.D)) movement.Right = true;
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+            {
+                movement.mouse = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
+                movement.isNew = true;
+            }
 
 
             // update entities here
@@ -62,6 +61,7 @@ namespace battleManager.Classes.GameState
         public override void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
             spriteBatch.DrawString(font, "BATTLE - press q to overview", new Vector2(20f, 20f), new Color(255, 255, 255));
+            spriteBatch.DrawString(font, "X: " + Mouse.GetState().X.ToString() + " Y: " + Mouse.GetState().Y.ToString(), new Vector2(5, 5), new Color(255, 255, 255));
             testCharacter.Draw(spriteBatch);
             base.Draw(spriteBatch, graphicsDevice);
         }

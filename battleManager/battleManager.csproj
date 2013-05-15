@@ -42,7 +42,10 @@
     <Compile Include="Classes\GameState\GameState.cs" />
     <Compile Include="Classes\GameState\MenuState.cs" />
     <Compile Include="Classes\GameState\OverviewState.cs" />
+    <Compile Include="Classes\MovementManager\IMoveManageable.cs" />
+    <Compile Include="Classes\MovementManager\SteeringManager.cs" />
     <Compile Include="Classes\SpriteHandlers\Animation.cs" />
+    <Compile Include="Classes\SpriteHandlers\DrawPrimitives.cs" />
     <Compile Include="Classes\SpriteHandlers\Sprite.cs" />
     <Compile Include="Classes\SpriteHandlers\SpriteBase.cs" />
     <Compile Include="Classes\SpriteHandlers\SpriteSheet.cs" />

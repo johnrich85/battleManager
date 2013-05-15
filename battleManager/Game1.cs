@@ -29,7 +29,6 @@ namespace battleManager
         IGameState currentState;
 
         List<IGameState> gameStates;
-
         public Game1()
             : base()
         {
@@ -41,7 +40,6 @@ namespace battleManager
             menuState = new MenuState(this.Content, new EventHandler(MenuStateEvent));
             overviewState = new OverviewState(this.Content, new EventHandler(OverviewStateEvent));
             battleState = new BattleState(this.Content, new EventHandler(BattleStateEvent));
-
             gameStates.Add(menuState);
             gameStates.Add(overviewState);
             gameStates.Add(battleState);
@@ -99,9 +97,6 @@ namespace battleManager
         {
             // TODO: Add your update logic here
             currentState.Update(gameTime);
-
-            
-
             base.Update(gameTime);
         }
 

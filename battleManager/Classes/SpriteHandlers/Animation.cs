@@ -78,12 +78,12 @@ namespace battleManager.Classes.SpriteHandlers
 
         public void Update(GameTime theGameTime, Vector2 thePosition)
         {
-            //Stop if active false;
+            // Stop if active false;
             if (active == false) return;
 
             this.elapsedTime += (float) theGameTime.ElapsedGameTime.Milliseconds;
 
-            //Time to change frames.
+            // Time to change frames.
             if (elapsedTime >= displayDuration)
             {
                 currentCol++;
