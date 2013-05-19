@@ -15,7 +15,7 @@ namespace battleManager.Classes.SpriteHandlers
     class Sprite : SpriteBase
     {
 
-        Rectangle frame;
+        protected Rectangle frame;
 
         /// <summary>
         /// Constructor - assigning class vars
@@ -28,6 +28,7 @@ namespace battleManager.Classes.SpriteHandlers
         public Sprite(Texture2D sprite, int height, int width)
             : base(sprite, height, width)
         {
+
         }
 
         /// <summary>

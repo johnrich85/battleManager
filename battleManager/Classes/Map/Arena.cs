@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using battleManager.Classes.SpriteHandlers;
+
 
 namespace battleManager.Classes.Map
 {
@@ -10,6 +10,8 @@ namespace battleManager.Classes.Map
     {
         int arenaWidth;
         int arenaHeight;
+        int textureWidth;
+        int textureHeight;
         Vector2 position;
         Texture2D texture;
 
@@ -17,17 +19,22 @@ namespace battleManager.Classes.Map
         {
             arenaWidth = width;
             arenaHeight = height;
+
+            textureWidth = theTexture.Width;
+            textureHeight = theTexture.Height;
             texture = theTexture;
 
         }
 
         public void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
+
             //Centering the map;
             position.X = (graphicsDevice.Viewport.Width - arenaWidth) /2;
             position.Y = (graphicsDevice.Viewport.Height - arenaHeight) / 2;
 
             spriteBatch.Draw(texture, position, Color.White);
+
         }
 
     }
