@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using battleManager.Classes.Map;
+using battleManager.Classes.SpriteHandlers.Factory;
 
 namespace battleManager.Classes.GameState
 {
@@ -19,7 +20,9 @@ namespace battleManager.Classes.GameState
         Sprite mapSprite;
         SpriteSheet test;
         Animation testAnim;
-        List<Texture2D> mapTextures;
+        List<Texture2D> mapFeatures;
+        MapFactory mapFactory;
+        FeatureFactory featureFactory;
 
         Arena mapTest;
 
@@ -36,93 +39,54 @@ namespace battleManager.Classes.GameState
             testAnim = new Animation();
             testAnim.Initialize(test, 150, true, new Vector2(50, 50), 1, 8, 2);
 
-            //Map Spritesheet texture
-            mapTexture = theContent.Load<Texture2D>("Graphics/Pipes-RustyWalls");
+            /*
+             * 
+             * ============================================ Start Map ============================================
+             * 
+            */
 
-            //Map Spritesheet sprite.
+            //Load map texture.
+            mapTexture = theContent.Load<Texture2D>("Graphics/Pipes-RustyWalls");
+            //Generate sprite using the texture.
             mapSprite = new Sprite(mapTexture, 32, 32);
 
-            //Getting individual tiles.
-            Texture2D mapTexture1 = mapSprite.getFrame(8, 2);
-            Texture2D mapTexture2 = mapSprite.getFrame(3, 3);
-            //Texture2D mapTexture3 = mapSprite.getFrame(1, 7);
-            //Texture2D mapTexture4 = mapSprite.getFrame(2, 5);
+            //Instantiate factories.
+            mapFactory = new MapFactory(theContent, mapTexture);
+            featureFactory = new FeatureFactory(theContent, mapTexture);
 
-            //Getting Corner Positions.
-            Vector2 topLeft = new Vector2(6, 3);
-            Vector2 topRight = new Vector2(6, 3);
-            Vector2 botRight = new Vector2(6, 3);
-            Vector2 botLeft = new Vector2(6, 3);
-            List<Vector2> corners = new List<Vector2>();
-            corners.Add(topLeft);
-            corners.Add(topRight);
-            corners.Add(botRight);
-            corners.Add(botLeft);
+            //Generate required sprites
 
-            //Sides
-            Vector2 sideLeft = new Vector2(6, 3);
-            Vector2 sideTop = new Vector2(6, 3);
-            Vector2 sideRight = new Vector2(6, 3);
-            Vector2 sideBot = new Vector2(6, 3);
-            List<Vector2> sides = new List<Vector2>();
-            sides.Add(sideLeft);
-            sides.Add(sideTop);
-            sides.Add(sideRight);
-            sides.Add(sideBot);
-
-            //Main tile
-            Vector2 mainTile = new Vector2(7, 2);
-
-            //Getting a multi-tiled image.
-            SpriteMulti mapBG = new SpriteMulti(mapTexture, 32, 32, corners, sides, mainTile, 19, 19);
+            //Map background.
+            SpriteMulti mapBG = mapFactory.makeConcrete();
             Texture2D theMapBg = mapBG.getTexture();
 
-            //Getting Corner Positions.
-            topLeft = new Vector2(3, 3);
-            topRight = new Vector2(5, 3);
-            botRight = new Vector2(5, 5);
-            botLeft = new Vector2(3, 5);
-            corners = new List<Vector2>();
+            //Multi tile map Feature
+            SpriteMulti feature1Sprite = featureFactory.makeWoodPanel();
+            Texture2D feature1 = feature1Sprite.getTexture();
 
-            corners.Add(topLeft);
-            corners.Add(topRight);
-            corners.Add(botRight);
-            corners.Add(botLeft);
-
-            //Sides
-            sideLeft = new Vector2(3, 4);
-            sideTop = new Vector2(4, 3);
-            sideRight = new Vector2(5, 4);
-            sideBot = new Vector2(4, 5);
-            sides = new List<Vector2>();
-            sides.Add(sideLeft);
-            sides.Add(sideTop);
-            sides.Add(sideRight);
-            sides.Add(sideBot);
-
-            //Main tile
-            mainTile = new Vector2(4, 4);
-
-            //Getting a multi-tiled image.
-            SpriteMulti multiSpriteTest = new SpriteMulti(mapTexture, 32, 32, corners, sides, mainTile, 4, 4);
-            Texture2D multiReturnTest = multiSpriteTest.getTexture();
+            //Single tile map feature.
+            Texture2D feature2 = mapSprite.getFrame(1, 7);
 
             //Storing tiles in list.
-            mapTextures = new List<Texture2D>();
-            mapTextures.Add(mapTexture2);
-            //mapTextures.Add(mapTexture3);
-            //mapTextures.Add(mapTexture4);
-            mapTextures.Add(multiReturnTest);
+            mapFeatures = new List<Texture2D>();
+            mapFeatures.Add(feature1);
+            mapFeatures.Add(feature2);
 
 
             //Passing tiles to map generator.
-            Generate mapGen = new Generate(theMapBg, mapTextures, 608, 608);
+            Generate mapGen = new Generate(theMapBg, mapFeatures, 800, 480);
 
             //Generating map.
             Texture2D generatedMap = mapGen.generateMap();
 
             //Passing finalized map into arena for positioning.
-            mapTest = new Arena(generatedMap, 608, 608);
+            mapTest = new Arena(generatedMap, 800, 480);
+
+            /*
+             * 
+             * ============================================ End Map ============================================
+             * 
+            */
 
             base.Initialize();
         }
@@ -150,5 +114,6 @@ namespace battleManager.Classes.GameState
             mapTest.Draw(spriteBatch, graphicsDevice);
             base.Draw(spriteBatch, graphicsDevice);
         }
+
     }
 }

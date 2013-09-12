@@ -18,10 +18,14 @@ namespace battleManager.Classes.SpriteHandlers
         int textureCols;
         int textureRows;
         int count;
+        int shadow;
         GraphicsDevice graphics;
         RenderTarget2D ret;
         SpriteBatch sb;
         Vector2 dest;
+        Vector2 destShadow;
+        Vector2 shadowOrigin;
+        Texture2D bgImage;
 
         /// <summary>
         /// This class is used to generate a meaningful image from a bunch of selected tiles.
@@ -34,7 +38,8 @@ namespace battleManager.Classes.SpriteHandlers
         /// <param name="center"> Tiles used for the center, this tile will be repeated.</param>
         /// <param name="returnTextureCols">Number of desired cols in the generated Texture2d</param>
         /// <param name="returnTextureRows">Number of desired rows in the generated Texture2d</param>
-        public SpriteMulti(Texture2D sprite, int height, int width, List<Vector2> corners, List<Vector2> sides, Vector2 center, int returnTextureCols, int returnTextureRows )
+        /// // <param name="returnTextureRows">Add shadow to the image?</param>
+        public SpriteMulti(Texture2D sprite, int height, int width, List<Vector2> corners, List<Vector2> sides, Vector2 center, int returnTextureCols, int returnTextureRows, int shadow = 0)
             : base(sprite, height, width)
         {
             cornerLocations = corners;
@@ -43,9 +48,16 @@ namespace battleManager.Classes.SpriteHandlers
             textureCols = returnTextureCols;
             textureRows = returnTextureRows;
 
+            this.shadow = shadow;
+
             //Used as source triangle to select the desired tile - x,y will be changed as required
             //rather than creating a new rectangle each time.
             Rectangle frame1 = new Rectangle(0, 0, frameWidth, frameHeight);
+
+            if (shadow == 1)
+            {
+                bgImage = CreateShadowTexture();
+            }
 
             //Prep
             prepareNewTexture();
@@ -59,15 +71,15 @@ namespace battleManager.Classes.SpriteHandlers
             //Draw Sides
             drawSides();
 
+            
+            
+
             graphics.Clear(new Color(0, 0, 0, 0));
             sb.End();
 
         }
 
 
-        //TODO:
-
-        //1. Need a target onto which the tiles will be drawn.
         public void prepareNewTexture() {
             graphics = sprite.GraphicsDevice;
 
@@ -76,6 +88,38 @@ namespace battleManager.Classes.SpriteHandlers
             sb = new SpriteBatch(graphics);
             sb.Begin();
             
+        }
+
+        private Texture2D CreateGradient(int width, int height)
+        {
+            Texture2D backgroundTex = new Texture2D(sprite.GraphicsDevice, width, height);
+            Color[] bgc = new Color[height * width];
+
+            for (int i = 0; i < bgc.Length; i++)
+            {
+                double val = i / 1.5;
+                int alphaVal = (int)val;
+                bgc[i] = new Color(255, 255, 255, alphaVal);
+            }
+            backgroundTex.SetData(bgc);
+
+            //Need rotation origin when this is drawn
+            shadowOrigin = new Vector2()
+            {
+                X = backgroundTex.Width,
+                Y = backgroundTex.Height
+            };
+
+            return backgroundTex;
+        }
+
+        private Texture2D CreateShadowTexture()
+        {
+            //TEsting shadow - don't want this code to stay here
+            Color shadowColor = Color.Black;
+            shadowColor.A = 205;
+
+            return CreateGradient(32, 32);
         }
 
         public void drawBg() {
@@ -104,6 +148,8 @@ namespace battleManager.Classes.SpriteHandlers
         {
             count = 0;
 
+            float rotationVal = 0;
+
             foreach (var spriteLoc in cornerLocations)
             {
                 //Cropping sprite sheet at required location.
@@ -118,29 +164,71 @@ namespace battleManager.Classes.SpriteHandlers
                     case 0:
                         dest.X = 0;
                         dest.Y = 0;
+
+                        //shadow
+                        if (this.shadow == 1)
+                        {
+                            destShadow.X = dest.X;
+                            destShadow.Y = dest.Y -16;
+
+                            rotationVal = (float)Math.PI;
+                        }
+
                     break;
 
                     //Top Right
                     case 1:
-                    dest.X = (textureCols * frameWidth) - frameWidth;
-                    dest.Y = 0;
+                        dest.X = (textureCols * frameWidth) - frameWidth;
+                        dest.Y = 0;
+
+                        //shadow
+                        if (this.shadow == 1)
+                        {
+                            destShadow.X = (textureCols * frameWidth) - frameWidth;
+                            destShadow.Y = dest.Y - 16;
+
+                            rotationVal = (float)Math.PI;
+                        }
                     break;
 
                     //Bottom Right
                     case 2:
-                    dest.X = (textureCols * frameWidth) - frameWidth;
-                    dest.Y = (textureRows * frameHeight) - frameHeight;
+                        dest.X = (textureCols * frameWidth) - frameWidth;
+                        dest.Y = (textureRows * frameHeight) - frameHeight;
+
+                        //shadow
+                        if (this.shadow == 1)
+                        {
+                            destShadow.X = (textureCols * frameWidth);
+                            destShadow.Y = (textureRows * frameHeight) + 16;
+
+                            rotationVal = 0;
+                        }
                     break;
 
                     //Bottom Left
                     case 3:
-                    dest.X = 0;
-                    dest.Y = (textureRows * frameHeight) - frameHeight;
+                        dest.X = 0;
+                        dest.Y = (textureRows * frameHeight) - frameHeight;
+
+                        //shadow
+                        if (this.shadow == 1)
+                        {
+                            destShadow.X = 0;
+                            destShadow.Y = (textureRows * frameHeight) - frameHeight;
+
+                            rotationVal = 0;
+                        }
                     break;
 
                 }
 
                 sb.Draw(tempImage, dest, Color.White);
+
+                if (this.shadow == 1)
+                {
+                    sb.Draw(bgImage, destShadow, null, Color.Black, rotationVal, shadowOrigin, 1, SpriteEffects.None, 0);
+                }
 
                 count++;
             }
@@ -166,44 +254,76 @@ namespace battleManager.Classes.SpriteHandlers
                     //Left
                     case 0:
                         dest.X = 0;
+                        destShadow.X = dest.X-16;
 
                         for (int a = 1; a < textureRows -1; a++)
                         {
                             dest.Y = a * frameHeight;
+                            destShadow.Y = a * frameHeight;
+
+                            
                             sb.Draw(tempImage, dest, Color.White);
+
+                            if (this.shadow == 1)
+                            {
+                                sb.Draw(bgImage, destShadow, null, Color.Black, (float)Math.PI / 2, shadowOrigin, 1, SpriteEffects.None, 0);
+                            }
                         }
                         break;
 
                     //Top
                     case 1:
                         dest.Y = 0;
-
+                        destShadow.Y = -16;
                         for (int a = 1; a < textureCols -1; a++)
                         {
                             dest.X = a * frameWidth;
+                            destShadow.X = a * frameWidth;
+
                             sb.Draw(tempImage, dest, Color.White);
+
+                            if (this.shadow == 1)
+                            {
+                                sb.Draw(bgImage, destShadow, null, Color.Black, (float)Math.PI, shadowOrigin, 1, SpriteEffects.None, 0);
+                            }
                         }
                         break;
 
                     //Right
                     case 2:
                         dest.X = textureCols * frameWidth - frameWidth;
+                        destShadow.X = dest.X + 42;
 
                         for (int a = 1; a < textureRows -1; a++)
                         {
                             dest.Y = a * frameHeight;
+                            destShadow.Y = a * frameHeight;
                             sb.Draw(tempImage, dest, Color.White);
+
+                            if (this.shadow == 1)
+                            {
+                                sb.Draw(bgImage, destShadow, null, Color.Black, (float) (Math.PI * 1.5), shadowOrigin, 1, SpriteEffects.None, 0);
+                            }
+
                         }
                         break;
 
                     //Bottom
                     case 3:
                         dest.Y = textureRows * frameHeight - frameHeight;
+                        destShadow.Y = dest.Y + 48;
 
                         for (int a = 1; a < textureCols -1; a++)
                         {
                             dest.X = a * frameWidth;
+                            destShadow.X = a * frameWidth;
+
                             sb.Draw(tempImage, dest, Color.White);
+
+                            if (this.shadow == 1)
+                            {
+                                sb.Draw(bgImage, destShadow, null, Color.Black, 0, shadowOrigin, 1, SpriteEffects.None, 0);
+                            }
                         }
                         break;
 
@@ -223,6 +343,8 @@ namespace battleManager.Classes.SpriteHandlers
         {
             return (Texture2D)ret;
         }
+
+        
 
 
     }

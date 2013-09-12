@@ -60,28 +60,20 @@ namespace battleManager.Classes.Map
             sb.Draw(texture, Vector2.Zero, source, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
 
 
-            Vector2 pos = new Vector2(32,32);
+            Vector2 pos = new Vector2(96,96);
 
-            Random randomNum = new Random();
-            
-            
+
             foreach (var v in mapTextures)
             {
-                
 
                 source2.Width = (v.Width);
                 source2.Height = (v.Height);
 
-                int num = randomNum.Next(1, 3);
+                sb.Draw(v, pos, source2, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
 
-                for (int a = 0; a < num; a++)
-                {
-                    int num1 = randomNum.Next(1, 5);
-                    pos.X = randomNum.Next(0, 576);
-                    pos.Y = randomNum.Next(0, 576);
-                    
-                    sb.Draw(v, pos, source2, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
-                }
+                //Need to make position change properly, this will do for now though, just placing the second item in bottom corner.
+                pos.X = 380;
+                pos.Y = 380;
 
             }
             
