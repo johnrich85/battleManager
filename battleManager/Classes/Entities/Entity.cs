@@ -1,4 +1,5 @@
-﻿using battleManager.Classes.SpriteHandlers;
+﻿using battleManager.Classes.Collision;
+using battleManager.Classes.SpriteHandlers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -25,13 +26,20 @@ namespace battleManager.Classes.Entities
         }
     }
 
-    class CollidableEntity : Entity
+    class CollidableEntity : Entity, ICollidable
     {
+        List<CollidableCircle> collisionMasks;
+
         public CollidableEntity(Vector2 position, battleManager.Classes.SpriteHandlers.IDrawableBM graphics)
             : base(position, graphics)
         {
         }
 
         public CollidableEntity() : base() { }
+
+        public IEnumerable<CollidableCircle> GetCollisionMasks()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

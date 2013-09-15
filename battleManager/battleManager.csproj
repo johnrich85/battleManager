@@ -38,10 +38,12 @@
     <Compile Include="Classes\Collision\Collision.cs" />
     <Compile Include="Classes\Entities\Character.cs" />
     <Compile Include="Classes\Entities\Entity.cs" />
+    <Compile Include="Classes\Entities\Mech.cs" />
     <Compile Include="Classes\GameState\BattleState.cs" />
     <Compile Include="Classes\GameState\GameState.cs" />
     <Compile Include="Classes\GameState\MenuState.cs" />
     <Compile Include="Classes\GameState\OverviewState.cs" />
+    <Compile Include="Classes\Global_Functions.cs" />
     <Compile Include="Classes\MovementManager\IMoveManageable.cs" />
     <Compile Include="Classes\MovementManager\SteeringManager.cs" />
     <Compile Include="Classes\SpriteHandlers\Animation.cs" />

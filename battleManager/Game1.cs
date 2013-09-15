@@ -33,6 +33,8 @@ namespace battleManager
             : base()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
             Content.RootDirectory = "Content";
 
             // instanstiate states
@@ -45,7 +47,7 @@ namespace battleManager
             gameStates.Add(battleState);
 
             // current state set to menu
-            currentState = menuState;
+            currentState = battleState;
         }
 
         /// <summary>
@@ -106,7 +108,7 @@ namespace battleManager
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
 

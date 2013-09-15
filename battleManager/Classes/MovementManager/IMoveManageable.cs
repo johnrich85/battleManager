@@ -17,6 +17,7 @@ namespace battleManager.Classes.MovementManager
         float getMaxForce();
         Vector2 getPosition();
         void SetPosition(Vector2 v);
+        void SetAngle(double angle);
         float getMass();
     }
 }

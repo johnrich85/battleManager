@@ -9,11 +9,11 @@ using System.Text;
 
 namespace battleManager.Classes.Entities
 {
-    class Character : CollidableEntity, IMoveManageable
+    abstract class Character : CollidableEntity, IMoveManageable
     {
         int health;
 
-        Animation graphics;
+        protected Animation graphics;
 
         public Vector2 velocity;
         public Vector2 target;
@@ -21,24 +21,18 @@ namespace battleManager.Classes.Entities
         // applies steering behaviors to entity
         public SteeringManager steering;
 
-        Movement movement;
-
-        float pixelsMovedPerSec = 110;
+        protected float pixelsMovedPerSec = 50;
         float pixelsMovedThisUpdate;
 
-        float maxForcePerSec = 10;
+        protected float maxForcePerSec = 10;
         float maxForceThisUpdate;
 
         public int mass = 4;
+        public double moveAngle;
         
 
         public Character(Vector2 position, SpriteSheet sheet)
         {
-            int health = 100;
-
-            graphics = new Animation();
-            graphics.Initialize(sheet, 150, true, this.position, 1, 8, 1);
-
             velocity = new Vector2(0, 0);
             target = new Vector2();
 
@@ -62,25 +56,60 @@ namespace battleManager.Classes.Entities
             maxForceThisUpdate = (float)((maxForcePerSec / 1000) * gameTime.ElapsedGameTime.TotalMilliseconds);
 
             // Using the steering manager to apply behaviors.
-            steering.Seek(target, 20);
+            steering.Seek(target, 100);
 
             // Use the manager to update the position vector.
             steering.Update();
 
+            SetAnimation();
+
             return true;
-            
+        }
+
+        /// <summary>
+        /// Sets the animation to the correct row in the spritesheet, based on the angle of the current velocity.
+        /// Stops the animation if sufficiently slow.
+        /// </summary>
+        protected void SetAnimation()
+        {
+            graphics.ScaleSpeed(1);
+
+            if (velocity.Length() > pixelsMovedThisUpdate / 12)
+            {
+                graphics.EndStillFrame();
+
+                if (this.moveAngle > -135 && this.moveAngle <= -45)
+                {
+                    graphics.ChangeRow(0);
+                }
+                if (this.moveAngle > -45 && this.moveAngle <= 45)
+                {
+                    graphics.ChangeRow(3);
+                }
+                else if (this.moveAngle > 45 && this.moveAngle <= 135)
+                {
+                    graphics.ChangeRow(2);
+                }
+                else if (this.moveAngle > 135 || this.moveAngle <= -135)
+                {
+                    graphics.ChangeRow(1);
+                }
+            }
+            else
+            {
+                graphics.StillFrame();
+            }
         }
 
         public void Update(GameTime gameTime, Movement movement)
         {
             Move(movement, gameTime);
-            graphics.Update(gameTime, position);
+            graphics.Update(gameTime, position, pixelsMovedThisUpdate / velocity.Length());
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             graphics.Draw(spriteBatch);
-            DrawPrimitives.DrawLine(spriteBatch, 1f, Color.White, position, position + velocity * 10, new GraphicsDevice());
         }
 
         #region IMoveManageable methods
@@ -117,6 +146,11 @@ namespace battleManager.Classes.Entities
         public float getMass()
         {
             return this.mass;
+        }
+
+        public void SetAngle(double angle)
+        {
+            this.moveAngle = angle;
         }
 
         #endregion

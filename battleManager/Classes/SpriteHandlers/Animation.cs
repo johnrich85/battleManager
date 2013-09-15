@@ -57,6 +57,8 @@ namespace battleManager.Classes.SpriteHandlers
         int startCol;
         int endCol;
 
+        bool stillFrame = false;
+
 
         public void Initialize(SpriteSheet theSpriteSheet, float frameDuration, bool isLooping, Vector2 thePosition, int startCol, int endCol, int spriteRow)
         {
@@ -76,15 +78,49 @@ namespace battleManager.Classes.SpriteHandlers
             this.sourceDestination = this.spriteSheet.getFrame(startCol, spriteRow);
         }
 
-        public void Update(GameTime theGameTime, Vector2 thePosition)
+        /// <summary>
+        /// Scales the time needed to switch to the next frame in the animation.
+        /// </summary>
+        /// <param name="scale">The float to scale the time by. 1.0f will reset the time.</param>
+        public void ScaleSpeed(float scale)
+        {
+            this.displayDuration = this.displayDuration * scale;
+        }
+
+        /// <summary>
+        /// Changes the row of the spritesheet that this animation uses.
+        /// </summary>
+        /// <param name="rowNum">New row to use.</param>
+        public void ChangeRow(int rowNum)
+        {
+            this.currentRow = rowNum;
+        }
+
+        /// <summary>
+        /// Stops the animation at the current frame.
+        /// </summary>
+        public void StillFrame()
+        {
+            stillFrame = true;
+        }
+
+        /// <summary>
+        /// Restarts the animation if it has been stopped.
+        /// </summary>
+        public void EndStillFrame()
+        {
+            stillFrame = false;
+        }
+
+        public void Update(GameTime theGameTime, Vector2 thePosition, float scale)
         {
             // Stop if active false;
             if (active == false) return;
 
-            this.elapsedTime += (float) theGameTime.ElapsedGameTime.Milliseconds;
+            this.elapsedTime += (float) (theGameTime.ElapsedGameTime.TotalMilliseconds / scale);
 
             // Time to change frames.
-            if (elapsedTime >= displayDuration)
+            if (elapsedTime >= displayDuration && stillFrame == false)
             {
                 currentCol++;
                 if (currentCol > endCol) currentCol = startCol;
@@ -113,7 +149,7 @@ namespace battleManager.Classes.SpriteHandlers
         {
             if (active)
             {
-                spriteBatch.Draw(spriteSheet.getSpriteSheet(), position, sourceDestination, Color.White);
+                spriteBatch.Draw(spriteSheet.getSpriteSheet(), new Vector2(position.X - sourceDestination.Width/2, position.Y - sourceDestination.Height), sourceDestination, Color.White);
             }
         }
     }
