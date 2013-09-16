@@ -38,54 +38,11 @@ namespace battleManager.Classes.GameState
             texture = theContent.Load<Texture2D>("Graphics/Mechs/Mech2/Mech2Walk");
             test = new SpriteSheet(texture, 96, 96, 7, 3);
 
-            testCharacter = new Mech(new Vector2(100, 100), test);            /*
-             * 
-             * ============================================ Start Map ============================================
-             * 
-            */
+            testCharacter = new Mech(new Vector2(100, 100), test);          
 
-            //Load map texture.
-            mapTexture = theContent.Load<Texture2D>("Graphics/Pipes-RustyWalls");
-            //Generate sprite using the texture.
-            mapSprite = new Sprite(mapTexture, 32, 32);
+            MapInit();
 
-            //Instantiate factories.
-            mapFactory = new MapFactory(theContent, mapTexture);
-            featureFactory = new FeatureFactory(theContent, mapTexture);
-
-            //Generate required sprites
-
-            //Map background.
-            SpriteMulti mapBG = mapFactory.makeConcrete();
-            Texture2D theMapBg = mapBG.getTexture();
-
-            //Multi tile map Feature
-            SpriteMulti feature1Sprite = featureFactory.makeWoodPanel();
-            Texture2D feature1 = feature1Sprite.getTexture();
-
-            //Single tile map feature.
-            Texture2D feature2 = mapSprite.getFrame(1, 7);
-
-            //Storing tiles in list.
-            mapFeatures = new List<Texture2D>();
-            mapFeatures.Add(feature1);
-            mapFeatures.Add(feature2);
-
-
-            //Passing tiles to map generator.
-            Generate mapGen = new Generate(theMapBg, mapFeatures, 800, 480);
-
-            //Generating map.
-            Texture2D generatedMap = mapGen.generateMap();
-
-            //Passing finalized map into arena for positioning.
-            mapTest = new Arena(generatedMap, 800, 480);
-
-            /*
-             * 
-             * ============================================ End Map ============================================
-             * 
-            */            base.Initialize();
+            base.Initialize();
         }
 
         public override void Update(GameTime gameTime)
@@ -127,10 +84,51 @@ namespace battleManager.Classes.GameState
                 spriteBatch.DrawString(font, testCharacter.moveAngle.ToString(), new Vector2(5, 50), new Color(255, 255, 255));
             }
 
-            testCharacter.Draw(spriteBatch);
-
             mapTest.Draw(spriteBatch, graphicsDevice);
+            testCharacter.Draw(spriteBatch);
             base.Draw(spriteBatch, graphicsDevice);
+        }
+
+
+        //TODO: Move to 'mapInit / mapRender' class.
+        private void MapInit()
+        {
+            //Load map texture.
+            mapTexture = theContent.Load<Texture2D>("Graphics/Pipes-RustyWalls");
+            //Generate sprite using the texture.
+            mapSprite = new Sprite(mapTexture, 32, 32);
+
+            //Instantiate factories.
+            mapFactory = new MapFactory(theContent, mapTexture);
+            featureFactory = new FeatureFactory(theContent, mapTexture);
+
+            //Generate required sprites
+
+            //Map background.
+            SpriteMulti mapBG = mapFactory.makeConcrete();
+            Texture2D theMapBg = mapBG.getTexture();
+
+            //Multi tile map Feature
+            SpriteMulti feature1Sprite = featureFactory.makeWoodPanel();
+            Texture2D feature1 = feature1Sprite.getTexture();
+
+            //Single tile map feature.
+            Texture2D feature2 = mapSprite.getFrame(1, 7);
+
+            //Storing tiles in list.
+            mapFeatures = new List<Texture2D>();
+            mapFeatures.Add(feature1);
+            mapFeatures.Add(feature2);
+
+
+            //Passing tiles to map generator.
+            Generate mapGen = new Generate(theMapBg, mapFeatures, 800, 480);
+
+            //Generating map.
+            Texture2D generatedMap = mapGen.generateMap();
+
+            //Passing finalized map into arena for positioning.
+            mapTest = new Arena(generatedMap, 800, 480);
         }
 
     }

@@ -59,6 +59,10 @@ namespace battleManager.Classes.SpriteHandlers
                 bgImage = CreateShadowTexture();
             }
 
+        }
+
+        public void init()
+        {
             //Prep
             prepareNewTexture();
 
@@ -71,12 +75,7 @@ namespace battleManager.Classes.SpriteHandlers
             //Draw Sides
             drawSides();
 
-            
-            
-
-            graphics.Clear(new Color(0, 0, 0, 0));
             sb.End();
-
         }
 
 

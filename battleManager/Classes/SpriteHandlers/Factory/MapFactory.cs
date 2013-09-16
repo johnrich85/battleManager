@@ -49,6 +49,7 @@ namespace battleManager.Classes.SpriteHandlers.Factory
 
             //Getting a multi-tiled image.
             SpriteMulti mapBG = new SpriteMulti(mapTexture, 32, 32, corners, sides, mainTile, 25, 15, 1);
+            mapBG.init();
 
             return mapBG;
 

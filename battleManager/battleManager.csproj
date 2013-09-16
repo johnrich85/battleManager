@@ -47,10 +47,14 @@
     <Compile Include="Classes\Map\Generate.cs" />
     <Compile Include="Classes\Global_Functions.cs" />
     <Compile Include="Classes\MovementManager\IMoveManageable.cs" />
-    <Compile Include="Classes\MovementManager\SteeringManager.cs" />    <Compile Include="Classes\SpriteHandlers\Animation.cs" />
-    <Compile Include="Classes\SpriteHandlers\DrawPrimitives.cs" />    <Compile Include="Classes\SpriteHandlers\Factory\FeatureFactory.cs" />
+    <Compile Include="Classes\MovementManager\SteeringManager.cs" />
+    <Compile Include="Classes\SpriteHandlers\Animation.cs" />
+    <Compile Include="Classes\SpriteHandlers\DrawPrimitives.cs" />
+    <Compile Include="Classes\SpriteHandlers\Factory\BaseSpriteFactory.cs" />
+    <Compile Include="Classes\SpriteHandlers\Factory\FeatureFactory.cs" />
     <Compile Include="Classes\SpriteHandlers\Factory\MapFactory.cs" />
-    <Compile Include="Classes\SpriteHandlers\SpriteMulti.cs" />    <Compile Include="Classes\SpriteHandlers\Sprite.cs" />
+    <Compile Include="Classes\SpriteHandlers\SpriteMulti.cs" />
+    <Compile Include="Classes\SpriteHandlers\Sprite.cs" />
     <Compile Include="Classes\SpriteHandlers\SpriteBase.cs" />
     <Compile Include="Classes\SpriteHandlers\SpriteSheet.cs" />
     <Compile Include="Game1.cs" />
@@ -74,7 +78,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>

@@ -8,9 +8,11 @@ namespace battleManager.Classes.SpriteHandlers
     /// <summary>
     /// Interface used to enforce draw method.
     /// </summary>
+    public interface IDrawable {
         void Draw(SpriteBatch spriteBatch);
     }
 
+    class Sprite : SpriteBase
     {
 
         protected Rectangle frame;

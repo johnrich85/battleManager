@@ -13,7 +13,7 @@ namespace battleManager.Classes.Entities
     {
         protected Vector2 position;
 
-        public Entity(Vector2 position, battleManager.Classes.SpriteHandlers.IDrawableBM graphics)
+        public Entity(Vector2 position, battleManager.Classes.SpriteHandlers.IDrawable graphics)
         {
             this.position = position;
         }
@@ -30,7 +30,7 @@ namespace battleManager.Classes.Entities
     {
         List<CollidableCircle> collisionMasks;
 
-        public CollidableEntity(Vector2 position, battleManager.Classes.SpriteHandlers.IDrawableBM graphics)
+        public CollidableEntity(Vector2 position, battleManager.Classes.SpriteHandlers.IDrawable graphics)
             : base(position, graphics)
         {
         }
