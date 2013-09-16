@@ -34,7 +34,6 @@ namespace battleManager.Classes.Map
             //Amount of cols/rows required.
             cols = arenaWidth / textureWidth;
             rows = arenaHeight / textureHeight;
-
         }
 
         public Texture2D generateMap()

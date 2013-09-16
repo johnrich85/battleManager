@@ -103,13 +103,6 @@ namespace battleManager.Classes.SpriteHandlers
             }
             backgroundTex.SetData(bgc);
 
-            //Need rotation origin when this is drawn
-            shadowOrigin = new Vector2()
-            {
-                X = backgroundTex.Width,
-                Y = backgroundTex.Height
-            };
-
             return backgroundTex;
         }
 
@@ -171,7 +164,7 @@ namespace battleManager.Classes.SpriteHandlers
                             destShadow.X = dest.X;
                             destShadow.Y = dest.Y -16;
 
-                            rotationVal = (float)Math.PI;
+                            rotationVal = 180;
                         }
 
                     break;
@@ -187,7 +180,7 @@ namespace battleManager.Classes.SpriteHandlers
                             destShadow.X = (textureCols * frameWidth) - frameWidth;
                             destShadow.Y = dest.Y - 16;
 
-                            rotationVal = (float)Math.PI;
+                            rotationVal = 180;
                         }
                     break;
 
@@ -227,7 +220,7 @@ namespace battleManager.Classes.SpriteHandlers
 
                 if (this.shadow == 1)
                 {
-                    sb.Draw(bgImage, destShadow, null, Color.Black, rotationVal, shadowOrigin, 1, SpriteEffects.None, 0);
+                    sb.Draw(bgImage, destShadow, null, Color.Black, MathHelper.ToRadians(rotationVal), new Vector2(0, 16), 0, SpriteEffects.None, 0);
                 }
 
                 count++;
@@ -254,7 +247,7 @@ namespace battleManager.Classes.SpriteHandlers
                     //Left
                     case 0:
                         dest.X = 0;
-                        destShadow.X = dest.X-16;
+                        destShadow.X = dest.X;
 
                         for (int a = 1; a < textureRows -1; a++)
                         {
@@ -266,7 +259,9 @@ namespace battleManager.Classes.SpriteHandlers
 
                             if (this.shadow == 1)
                             {
-                                sb.Draw(bgImage, destShadow, null, Color.Black, (float)Math.PI / 2, shadowOrigin, 1, SpriteEffects.None, 0);
+
+                                sb.Draw(bgImage, destShadow, null, Color.Black, MathHelper.ToRadians(90), new Vector2(0,16), 1, SpriteEffects.None, 0f);
+     
                             }
                         }
                         break;
@@ -274,17 +269,17 @@ namespace battleManager.Classes.SpriteHandlers
                     //Top
                     case 1:
                         dest.Y = 0;
-                        destShadow.Y = -16;
+                        destShadow.Y = dest.Y;
                         for (int a = 1; a < textureCols -1; a++)
                         {
                             dest.X = a * frameWidth;
-                            destShadow.X = a * frameWidth;
+                            destShadow.X = a * frameWidth + 32;
 
                             sb.Draw(tempImage, dest, Color.White);
 
                             if (this.shadow == 1)
                             {
-                                sb.Draw(bgImage, destShadow, null, Color.Black, (float)Math.PI, shadowOrigin, 1, SpriteEffects.None, 0);
+                                sb.Draw(bgImage, destShadow, null, Color.Black, MathHelper.ToRadians(180), new Vector2(0, 16), 1, SpriteEffects.None, 0);
                             }
                         }
                         break;
@@ -292,7 +287,7 @@ namespace battleManager.Classes.SpriteHandlers
                     //Right
                     case 2:
                         dest.X = textureCols * frameWidth - frameWidth;
-                        destShadow.X = dest.X + 42;
+                        destShadow.X = dest.X + 16;
 
                         for (int a = 1; a < textureRows -1; a++)
                         {
@@ -302,7 +297,7 @@ namespace battleManager.Classes.SpriteHandlers
 
                             if (this.shadow == 1)
                             {
-                                sb.Draw(bgImage, destShadow, null, Color.Black, (float) (Math.PI * 1.5), shadowOrigin, 1, SpriteEffects.None, 0);
+                                sb.Draw(bgImage, destShadow, null, Color.Black, MathHelper.ToRadians(270), new Vector2(32, 0), 1, SpriteEffects.None, 0);
                             }
 
                         }
@@ -311,7 +306,7 @@ namespace battleManager.Classes.SpriteHandlers
                     //Bottom
                     case 3:
                         dest.Y = textureRows * frameHeight - frameHeight;
-                        destShadow.Y = dest.Y + 48;
+                        destShadow.Y = dest.Y + 32;
 
                         for (int a = 1; a < textureCols -1; a++)
                         {
@@ -322,7 +317,7 @@ namespace battleManager.Classes.SpriteHandlers
 
                             if (this.shadow == 1)
                             {
-                                sb.Draw(bgImage, destShadow, null, Color.Black, 0, shadowOrigin, 1, SpriteEffects.None, 0);
+                                sb.Draw(bgImage, destShadow, null, Color.Black, 0, new Vector2(0, 16), 1, SpriteEffects.None, 0);
                             }
                         }
                         break;
