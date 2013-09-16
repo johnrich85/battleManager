@@ -7,6 +7,17 @@ using System.Text;
 
 namespace battleManager.Classes.Collision
 {
+    interface ICollidable
+    {
+        IEnumerable<CollidableCircle> GetCollisionMasks();
+    }
+
+    struct CollidableCircle
+    {
+        float centerPos;
+        float radius;
+    }
+
     class Collision
     {
         public bool BoundingCirle(float x1, float y1, float radius1, float x2, float y2, float radius2)

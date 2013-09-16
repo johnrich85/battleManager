@@ -29,11 +29,12 @@ namespace battleManager
         IGameState currentState;
 
         List<IGameState> gameStates;
-
         public Game1()
             : base()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
             Content.RootDirectory = "Content";
 
             // instanstiate states
@@ -41,13 +42,12 @@ namespace battleManager
             menuState = new MenuState(this.Content, new EventHandler(MenuStateEvent));
             overviewState = new OverviewState(this.Content, new EventHandler(OverviewStateEvent));
             battleState = new BattleState(this.Content, new EventHandler(BattleStateEvent));
-
             gameStates.Add(menuState);
             gameStates.Add(overviewState);
             gameStates.Add(battleState);
 
             // current state set to menu
-            currentState = menuState;
+            currentState = battleState;
         }
 
         /// <summary>
@@ -99,9 +99,6 @@ namespace battleManager
         {
             // TODO: Add your update logic here
             currentState.Update(gameTime);
-
-            
-
             base.Update(gameTime);
         }
 
@@ -111,7 +108,7 @@ namespace battleManager
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
 

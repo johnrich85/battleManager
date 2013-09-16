@@ -1,8 +1,9 @@
-﻿using battleManager.Classes.SpriteHandlers;
+﻿using battleManager.Classes.Entities;
+using battleManager.Classes.SpriteHandlers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using OpenTK.Input;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,14 +20,13 @@ namespace battleManager.Classes.GameState
         Texture2D mapTexture;
         Sprite mapSprite;
         SpriteSheet test;
-        Animation testAnim;
+        Movement movement = new Movement();
         List<Texture2D> mapFeatures;
         MapFactory mapFactory;
         FeatureFactory featureFactory;
 
-        Arena mapTest;
-
-        public BattleState(ContentManager theContent, EventHandler gameStateEvent)
+        Character testCharacter;
+        bool debug = false;        Arena mapTest;        public BattleState(ContentManager theContent, EventHandler gameStateEvent)
             : base(theContent, gameStateEvent)
         {
         }
@@ -34,12 +34,11 @@ namespace battleManager.Classes.GameState
         public override void Initialize()
         {
             font = theContent.Load<SpriteFont>("SpriteFont1");
-            texture = theContent.Load<Texture2D>("Graphics/Characters/Agent/AgentWalk");
-            test = new SpriteSheet(texture, 64, 64, 8, 3);
-            testAnim = new Animation();
-            testAnim.Initialize(test, 150, true, new Vector2(50, 50), 1, 8, 2);
 
-            /*
+            texture = theContent.Load<Texture2D>("Graphics/Mechs/Mech2/Mech2Walk");
+            test = new SpriteSheet(texture, 96, 96, 7, 3);
+
+            testCharacter = new Mech(new Vector2(100, 100), test);            /*
              * 
              * ============================================ Start Map ============================================
              * 
@@ -86,19 +85,31 @@ namespace battleManager.Classes.GameState
              * 
              * ============================================ End Map ============================================
              * 
-            */
-
-            base.Initialize();
+            */            base.Initialize();
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Key.Q))
+            if (Keyboard.GetState().IsKeyDown(Keys.Q))
             {
                 gameStateEvent.Invoke(this, new EventArgs());
             }
 
-            testAnim.Update(gameTime, new Vector2(50, 50));
+            if (Keyboard.GetState().IsKeyDown(Keys.D) && Keyboard.GetState().IsKeyDown(Keys.LeftControl))
+            {
+                debug = true;
+            }
+
+            movement.Reset();
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+            {
+                movement.mouse = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
+                movement.isNew = true;
+            }
+
+
+            // update entities here
+            testCharacter.Update(gameTime, movement);
 
             base.Update(gameTime);
         }
@@ -109,7 +120,14 @@ namespace battleManager.Classes.GameState
             graphicsDevice.Clear(new Color(0, 0, 0, 1));
 
             spriteBatch.DrawString(font, "BATTLE - press q to overview", new Vector2(20f, 20f), new Color(255, 255, 255));
-            testAnim.Draw(spriteBatch);
+
+            if (debug)
+            {
+                spriteBatch.DrawString(font, "X: " + Mouse.GetState().X.ToString() + " Y: " + Mouse.GetState().Y.ToString(), new Vector2(5, 5), new Color(255, 255, 255));
+                spriteBatch.DrawString(font, testCharacter.moveAngle.ToString(), new Vector2(5, 50), new Color(255, 255, 255));
+            }
+
+            testCharacter.Draw(spriteBatch);
 
             mapTest.Draw(spriteBatch, graphicsDevice);
             base.Draw(spriteBatch, graphicsDevice);
