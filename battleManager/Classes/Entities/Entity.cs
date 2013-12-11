@@ -28,18 +28,22 @@ namespace battleManager.Classes.Entities
 
     class CollidableEntity : Entity, ICollidable
     {
-        List<CollidableCircle> collisionMasks;
+        protected List<CollidableCircle> collisionMasks;
 
         public CollidableEntity(Vector2 position, battleManager.Classes.SpriteHandlers.IDrawable graphics)
             : base(position, graphics)
         {
+            collisionMasks = new List<CollidableCircle>();
         }
 
-        public CollidableEntity() : base() { }
+        public CollidableEntity() : base()
+        {
+            collisionMasks = new List<CollidableCircle>();
+        }
 
         public IEnumerable<CollidableCircle> GetCollisionMasks()
         {
-            throw new NotImplementedException();
+            return this.collisionMasks;
         }
     }
 }

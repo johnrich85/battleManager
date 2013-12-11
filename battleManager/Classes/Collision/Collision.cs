@@ -14,11 +14,11 @@ namespace battleManager.Classes.Collision
 
     struct CollidableCircle
     {
-        float centerPos;
-        float radius;
+        public Vector2 centerPos;
+        public float radius;
     }
 
-    class Collision
+    class Collider
     {
         public bool BoundingCirle(float x1, float y1, float radius1, float x2, float y2, float radius2)
         {

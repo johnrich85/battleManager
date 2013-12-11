@@ -110,6 +110,7 @@ namespace battleManager.Classes.Entities
         public override void Draw(SpriteBatch spriteBatch)
         {
             graphics.Draw(spriteBatch);
+
         }
 
         #region IMoveManageable methods

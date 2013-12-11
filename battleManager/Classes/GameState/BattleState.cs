@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using battleManager.Classes.Map;
 using battleManager.Classes.SpriteHandlers.Factory;
+using battleManager.Classes.Collision;
 
 namespace battleManager.Classes.GameState
 {
@@ -17,15 +18,21 @@ namespace battleManager.Classes.GameState
     {
         SpriteFont font;
         Texture2D texture;
+        Texture2D texture2;
         Texture2D mapTexture;
         Sprite mapSprite;
         SpriteSheet test;
+        SpriteSheet test2;
         Movement movement = new Movement();
+        Movement movement2 = new Movement();
         List<Texture2D> mapFeatures;
         MapFactory mapFactory;
         FeatureFactory featureFactory;
+        Collider collider;
 
         Character testCharacter;
+        Character testCharacter2;
+
         bool debug = false;        Arena mapTest;        public BattleState(ContentManager theContent, EventHandler gameStateEvent)
             : base(theContent, gameStateEvent)
         {
@@ -34,14 +41,14 @@ namespace battleManager.Classes.GameState
         public override void Initialize()
         {
             font = theContent.Load<SpriteFont>("SpriteFont1");
-
             texture = theContent.Load<Texture2D>("Graphics/Mechs/Mech2/Mech2Walk");
+            texture2 = theContent.Load<Texture2D>("Graphics/Mechs/Mech2/Mech2Walk");
             test = new SpriteSheet(texture, 96, 96, 7, 3);
-
-            testCharacter = new Mech(new Vector2(100, 100), test);          
-
+            test2 = new SpriteSheet(texture2, 96, 96, 7, 3);
+            testCharacter = new Mech(new Vector2(100, 100), test);
+            testCharacter2 = new Mech(new Vector2(500, 500), test2);
             MapInit();
-
+            collider = new Collider();
             base.Initialize();
         }
 
@@ -64,10 +71,9 @@ namespace battleManager.Classes.GameState
                 movement.isNew = true;
             }
 
-
             // update entities here
             testCharacter.Update(gameTime, movement);
-
+            testCharacter2.Update(gameTime, new Movement() { isNew = true, mouse = testCharacter.getPosition() });
             base.Update(gameTime);
         }
 
@@ -86,6 +92,7 @@ namespace battleManager.Classes.GameState
 
             mapTest.Draw(spriteBatch, graphicsDevice);
             testCharacter.Draw(spriteBatch);
+            testCharacter2.Draw(spriteBatch);
             base.Draw(spriteBatch, graphicsDevice);
         }
 
