@@ -83,7 +83,8 @@ namespace battleManager.Classes.GameState
             testCharacter2.Update(gameTime, new Movement() { isNew = true, mouse = testCharacter.getPosition() });
             if (collider.BoundingCirle(testCharacter.GetCollisionMasks().First(), testCharacter2.GetCollisionMasks().First()))
             {
-                Debug.WriteLine("Handle Collision!");
+                testCharacter.CollideWith(testCharacter2.GetCollHandler());
+                testCharacter2.CollideWith(testCharacter.GetCollHandler());
             }
             // TODO: Might need a custom sorting technique. Check this if performance is bad.
             entities.Sort(); 
@@ -97,11 +98,10 @@ namespace battleManager.Classes.GameState
 
             spriteBatch.DrawString(font, "BATTLE - press q to overview", new Vector2(20f, 20f), new Color(255, 255, 255));
 
-            if (debug)
-            {
-                spriteBatch.DrawString(font, "X: " + Mouse.GetState().X.ToString() + " Y: " + Mouse.GetState().Y.ToString(), new Vector2(5, 5), new Color(255, 255, 255));
-                spriteBatch.DrawString(font, testCharacter.moveAngle.ToString(), new Vector2(5, 50), new Color(255, 255, 255));
-            }
+            #if DEBUG
+            spriteBatch.DrawString(font, "X: " + Mouse.GetState().X.ToString() + " Y: " + Mouse.GetState().Y.ToString(), new Vector2(5, 5), new Color(255, 255, 255));
+            spriteBatch.DrawString(font, testCharacter.moveAngle.ToString(), new Vector2(5, 50), new Color(255, 255, 255));
+            #endif
 
             mapTest.Draw(spriteBatch, graphicsDevice);
             foreach (var e in entities)

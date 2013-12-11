@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using battleManager.Classes.Entities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -100,6 +101,141 @@ namespace battleManager.Classes.Collision
             }
 
             return false;
+        }
+    }
+
+    interface IEntityCollisionHandler
+    {
+        void Collide(CollideHandler entity);
+    }
+
+    abstract class CollideHandler : IEntityCollisionHandler
+    {
+        public void Collide(CollideHandler entity)
+        {
+            if (entity.GetType() == typeof(CharacterCollider)) CharCollide((CharacterCollider)entity);
+            if (entity.GetType() == typeof(ProjectileCollider)) ProjectileCollide((ProjectileCollider)entity);
+            if (entity.GetType() == typeof(TerrainCollider)) TerrainCollide((TerrainCollider)entity);
+            if (entity.GetType() == typeof(SceneryCollider)) SceneryCollide((SceneryCollider)entity);
+        }
+
+        virtual protected void CharCollide(CharacterCollider entity)
+        {
+            Debug.WriteLine("Characters collided!");
+        }
+
+        virtual protected void ProjectileCollide(ProjectileCollider proj)
+        {
+            Debug.WriteLine("Projectile collided!");
+        }
+
+        virtual protected void TerrainCollide(TerrainCollider terr)
+        {
+            Debug.WriteLine("Terrain collided!");
+        }
+
+        virtual protected void SceneryCollide(SceneryCollider terr)
+        {
+            Debug.WriteLine("Scenery collided!");
+        }
+    }
+
+    class CharacterCollider : CollideHandler
+    {
+        Character host;
+
+        public CharacterCollider(Character host)
+        {
+            this.host = host;
+        }
+
+        protected override void CharCollide(CharacterCollider entity)
+        {
+            Debug.WriteLine("Characters collided!");
+        }
+
+        protected override void ProjectileCollide(ProjectileCollider proj)
+        {
+            host.ReduceHealth(10);
+        }
+
+        protected override void TerrainCollide(TerrainCollider terr)
+        {
+            Debug.WriteLine("Character collided with terrain!");
+        }
+
+        protected override void SceneryCollide(SceneryCollider terr)
+        {
+            Debug.WriteLine("Character collided with terrain!");
+        }
+    }
+
+    class ProjectileCollider : CollideHandler
+    {
+        protected override void CharCollide(CharacterCollider entity)
+        {
+            Debug.WriteLine("Projectile and Character collided!");
+        }
+
+        protected override void ProjectileCollide(ProjectileCollider proj)
+        {
+            Debug.WriteLine("Projectiles collided!");
+        }
+
+        protected override void TerrainCollide(TerrainCollider terr)
+        {
+            Debug.WriteLine("Projectile and Terrain collided!");
+        }
+
+        protected override void SceneryCollide(SceneryCollider terr)
+        {
+            Debug.WriteLine("Projectile and Scenery collided!");
+        }
+    }
+
+    class TerrainCollider : CollideHandler
+    {
+        protected override void CharCollide(CharacterCollider entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void ProjectileCollide(ProjectileCollider proj)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void TerrainCollide(TerrainCollider terr)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void SceneryCollide(SceneryCollider terr)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    class SceneryCollider : CollideHandler
+    {
+        protected override void CharCollide(CharacterCollider entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void ProjectileCollide(ProjectileCollider proj)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void TerrainCollide(TerrainCollider terr)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void SceneryCollide(SceneryCollider terr)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using battleManager.Classes.MovementManager;
+﻿using battleManager.Classes.Collision;
+using battleManager.Classes.MovementManager;
 using battleManager.Classes.SpriteHandlers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -39,6 +40,13 @@ namespace battleManager.Classes.Entities
             steering = new SteeringManager(this);
 
             this.position = position;
+            this.collisionHandler = new CharacterCollider(this);
+        }
+
+        public void ReduceHealth(int reduceBy)
+        {
+            this.health -= reduceBy;
+            if (health < 0) this.health = 0;
         }
 
         protected bool Move(Movement movement, GameTime gameTime)

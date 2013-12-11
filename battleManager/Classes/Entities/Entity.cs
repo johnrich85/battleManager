@@ -39,6 +39,7 @@ namespace battleManager.Classes.Entities
     class CollidableEntity : Entity, ICollidable
     {
         protected List<CollidableCircle> collisionMasks;
+        protected CollideHandler collisionHandler;
 
         public CollidableEntity(Vector2 position, battleManager.Classes.SpriteHandlers.IDrawable graphics)
             : base(position, graphics)
@@ -57,6 +58,16 @@ namespace battleManager.Classes.Entities
             {
                 yield return new CollidableCircle() { centerPos = this.position + circle.centerPos, radius = circle.radius };
             }
+        }
+
+        public void CollideWith(CollideHandler otherCollHandler)
+        {
+            collisionHandler.Collide(otherCollHandler);
+        }
+
+        public CollideHandler GetCollHandler()
+        {
+            return collisionHandler;
         }
     }
 }
