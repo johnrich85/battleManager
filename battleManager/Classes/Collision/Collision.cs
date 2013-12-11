@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
@@ -20,22 +21,19 @@ namespace battleManager.Classes.Collision
 
     class Collider
     {
-        public bool BoundingCirle(float x1, float y1, float radius1, float x2, float y2, float radius2)
+        public bool BoundingCirle(CollidableCircle firstCircle, CollidableCircle secondCircle)
         {
-            Vector2 v1 = new Vector2(x1, y1);
-            Vector2 v2 = new Vector2(x2, y2);
+            Vector2 distance = firstCircle.centerPos - secondCircle.centerPos;
 
-            Vector2 distance = v1 - v2;
-
-            if (distance.Length() < radius1 + radius2)
+            if (distance.Length() < firstCircle.radius + secondCircle.radius)
             {
+                Debug.WriteLine(distance.Length());
                 return true;
             }
             else
             {
                 return false;
             }
-
         }
 
         public bool BoundingCirle(Vector2 v1, float radius1, Vector2 v2, float radius2)

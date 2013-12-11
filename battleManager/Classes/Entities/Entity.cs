@@ -9,7 +9,7 @@ using System.Text;
 
 namespace battleManager.Classes.Entities
 {
-    class Entity
+    class Entity : IComparable<Entity>
     {
         protected Vector2 position;
 
@@ -23,6 +23,16 @@ namespace battleManager.Classes.Entities
         public virtual void Draw(SpriteBatch spriteBatch)
         {
 
+        }
+
+        /// <summary>
+        /// Sort entities by their Y axis value.
+        /// </summary>
+        public int CompareTo(Entity otherEntity)
+        {
+            if (this.position.Y < otherEntity.position.Y) return -1;
+            else if (this.position.Y > otherEntity.position.Y) return 1;
+            else return 0;
         }
     }
 
@@ -43,7 +53,10 @@ namespace battleManager.Classes.Entities
 
         public IEnumerable<CollidableCircle> GetCollisionMasks()
         {
-            return this.collisionMasks;
+            foreach (CollidableCircle circle in this.collisionMasks)
+            {
+                yield return new CollidableCircle() { centerPos = this.position + circle.centerPos, radius = circle.radius };
+            }
         }
     }
 }

@@ -18,7 +18,7 @@ namespace battleManager.Classes.Entities
             this.pixelsMovedPerSec = 90;
             this.maxForcePerSec = 10;
             this.mass = 3;
-            this.collisionMasks.Add(new Collision.CollidableCircle() { centerPos = this.position, radius = 50.0f });
+            this.collisionMasks.Add(new Collision.CollidableCircle() { centerPos = new Vector2(0,0), radius = 50.0f });
         }
 
     }

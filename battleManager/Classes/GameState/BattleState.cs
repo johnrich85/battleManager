@@ -11,6 +11,7 @@ using System.Text;
 using battleManager.Classes.Map;
 using battleManager.Classes.SpriteHandlers.Factory;
 using battleManager.Classes.Collision;
+using System.Diagnostics;
 
 namespace battleManager.Classes.GameState
 {
@@ -29,11 +30,14 @@ namespace battleManager.Classes.GameState
         MapFactory mapFactory;
         FeatureFactory featureFactory;
         Collider collider;
+        List<Entity> entities;
 
         Character testCharacter;
         Character testCharacter2;
 
-        bool debug = false;        Arena mapTest;        public BattleState(ContentManager theContent, EventHandler gameStateEvent)
+        bool debug = false;
+        Arena mapTest;
+        public BattleState(ContentManager theContent, EventHandler gameStateEvent)
             : base(theContent, gameStateEvent)
         {
         }
@@ -47,6 +51,9 @@ namespace battleManager.Classes.GameState
             test2 = new SpriteSheet(texture2, 96, 96, 7, 3);
             testCharacter = new Mech(new Vector2(100, 100), test);
             testCharacter2 = new Mech(new Vector2(500, 500), test2);
+            entities = new List<Entity>();
+            entities.Add(testCharacter2);
+            entities.Add(testCharacter);
             MapInit();
             collider = new Collider();
             base.Initialize();
@@ -74,6 +81,12 @@ namespace battleManager.Classes.GameState
             // update entities here
             testCharacter.Update(gameTime, movement);
             testCharacter2.Update(gameTime, new Movement() { isNew = true, mouse = testCharacter.getPosition() });
+            if (collider.BoundingCirle(testCharacter.GetCollisionMasks().First(), testCharacter2.GetCollisionMasks().First()))
+            {
+                Debug.WriteLine("Handle Collision!");
+            }
+            // TODO: Might need a custom sorting technique. Check this if performance is bad.
+            entities.Sort(); 
             base.Update(gameTime);
         }
 
@@ -91,8 +104,10 @@ namespace battleManager.Classes.GameState
             }
 
             mapTest.Draw(spriteBatch, graphicsDevice);
-            testCharacter.Draw(spriteBatch);
-            testCharacter2.Draw(spriteBatch);
+            foreach (var e in entities)
+            {
+                e.Draw(spriteBatch);
+            }
             base.Draw(spriteBatch, graphicsDevice);
         }
 
